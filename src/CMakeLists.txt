@@ -260,7 +260,8 @@ if(WIN32)
 	if(MSVC) # MSVC Specifics
 		set(PLATFORM_LIBS dbghelp.lib ${PLATFORM_LIBS})
 		# Surpress some useless warnings
-		add_definitions ( /D "_CRT_SECURE_NO_DEPRECATE" /W1 )
+		add_definitions ( /D "_CRT_SECURE_NO_DEPRECATE" )
+		add_compile_options(/W1)
 		# Get M_PI to work
 		add_definitions(/D "_USE_MATH_DEFINES")
 		# Dont define min/max macros in minwindef.h
