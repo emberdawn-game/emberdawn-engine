@@ -1,0 +1,23 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg/master/scripts/vcpkg.schema.json",
+  "name": "emberdawn-engine",
+  "version-string": "0.0.0-dev",
+  "builtin-baseline": "05c445c1fb3afb90aa8a46ca2b7d2a9548a27121",
+  "dependencies": [
+    {
+      "name": "curl",
+      "features": ["winssl"]
+    },
+    "freetype",
+    "libjpeg-turbo",
+    "libogg",
+    "libvorbis",
+    "luajit",
+    "openal-soft",
+    "opengl",
+    "opengl-registry",
+    "sqlite3",
+    "zlib",
+    "zstd"
+  ]
+}

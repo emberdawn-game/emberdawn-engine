@@ -7,6 +7,10 @@ else()
 	cmake_policy(VERSION 3.9)
 endif()
 
+if(DEFINED ENV{VCPKG_ROOT} AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
+	set(CMAKE_TOOLCHAIN_FILE "$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake" CACHE STRING "")
+endif()
+
 # This can be read from ${PROJECT_NAME} after project() is called
 project(minetest)
 set(PROJECT_NAME_CAPITALIZED "Minetest")
