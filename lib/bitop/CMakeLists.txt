@@ -1,3 +1,2 @@
 add_library(bitop bit.c)
-
-include_directories(${LUA_INCLUDE_DIR})
+target_include_directories(bitop ${LUA_INCLUDE_DIR})
