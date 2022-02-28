@@ -4,33 +4,23 @@ if(DEFINED ENV{VCPKG_ROOT} AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
 	set(CMAKE_TOOLCHAIN_FILE "$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake" CACHE STRING "")
 endif()
 
-project(emberdawn-engine)
+# Also remember to set PROTOCOL_VERSION in network/networkprotocol.h when releasing
+project(emberdawn-engine VERSION 5.5.0)
+set(PROJECT_VERSION_PRERELEASE "dev")
 set(PROJECT_NAME_CAPITALIZED "Emberdawn Engine")
+
+if(PROJECT_VERSION_PRERELEASE)
+    set(PROJECT_VERSION "${PROJECT_VERSION}-${PROJECT_VERSION_PRERELEASE}")
+endif()
+
+if (CMAKE_BUILD_TYPE STREQUAL Debug)
+    # Append "-debug" to version string
+    set(PROJECT_VERSION "${PROJECT_VERSION}-debug")
+endif()
 
 set(CMAKE_CXX_STANDARD 11)
 set(GCC_MINIMUM_VERSION "5.1")
 set(CLANG_MINIMUM_VERSION "3.5")
-
-# Also remember to set PROTOCOL_VERSION in network/networkprotocol.h when releasing
-set(VERSION_MAJOR 5)
-set(VERSION_MINOR 5)
-set(VERSION_PATCH 0)
-set(VERSION_EXTRA "" CACHE STRING "Stuff to append to version string")
-
-# Change to false for releases
-set(DEVELOPMENT_BUILD TRUE)
-
-set(VERSION_STRING "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
-if(VERSION_EXTRA)
-	set(VERSION_STRING "${VERSION_STRING}-${VERSION_EXTRA}")
-elseif(DEVELOPMENT_BUILD)
-	set(VERSION_STRING "${VERSION_STRING}-dev")
-endif()
-
-if (CMAKE_BUILD_TYPE STREQUAL Debug)
-	# Append "-debug" to version string
-	set(VERSION_STRING "${VERSION_STRING}-debug")
-endif()
 
 
 # Configuration options
@@ -244,9 +234,9 @@ add_subdirectory(src)
 # CPack
 
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "A free open-source voxel game engine with easy modding and game creation.")
-set(CPACK_PACKAGE_VERSION_MAJOR ${VERSION_MAJOR})
-set(CPACK_PACKAGE_VERSION_MINOR ${VERSION_MINOR})
-set(CPACK_PACKAGE_VERSION_PATCH ${VERSION_PATCH})
+set(CPACK_PACKAGE_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
+set(CPACK_PACKAGE_VERSION_MINOR ${PROJECT_VERSION_MINOR})
+set(CPACK_PACKAGE_VERSION_PATCH ${PROJECT_VERSION_PATCH})
 set(CPACK_PACKAGE_VENDOR "celeron55")
 set(CPACK_PACKAGE_CONTACT "Perttu Ahola <celeron55@gmail.com>")
 
