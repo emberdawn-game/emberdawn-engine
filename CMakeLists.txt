@@ -5,8 +5,8 @@ if(DEFINED ENV{VCPKG_ROOT} AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
 endif()
 
 # This can be read from ${PROJECT_NAME} after project() is called
-project(minetest)
-set(PROJECT_NAME_CAPITALIZED "Minetest")
+project(emberdawn-engine)
+set(PROJECT_NAME_CAPITALIZED "Emberdawn Engine")
 
 set(CMAKE_CXX_STANDARD 11)
 set(GCC_MINIMUM_VERSION "5.1")
