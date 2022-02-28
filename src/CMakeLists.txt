@@ -474,12 +474,8 @@ set(server_SRCS
 )
 list(SORT server_SRCS)
 
-# Avoid source_group on broken CMake version.
-# see issue #7074 #7075
-if (CMAKE_VERSION VERSION_GREATER 3.8.1)
-	source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} PREFIX "Source Files" FILES ${client_SRCS})
-	source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} PREFIX "Source Files" FILES ${server_SRCS})
-endif()
+source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} PREFIX "Source Files" FILES ${client_SRCS})
+source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} PREFIX "Source Files" FILES ${server_SRCS})
 
 include_directories(
 	${CMAKE_CURRENT_BINARY_DIR}
