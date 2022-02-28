@@ -1,2 +1,2 @@
-add_library(jsoncpp jsoncpp.cpp)
+add_library(jsoncpp STATIC jsoncpp.cpp)
 

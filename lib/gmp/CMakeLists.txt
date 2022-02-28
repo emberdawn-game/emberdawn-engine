@@ -1,2 +1,2 @@
-add_library(gmp mini-gmp.c)
+add_library(gmp STATIC mini-gmp.c)
 
