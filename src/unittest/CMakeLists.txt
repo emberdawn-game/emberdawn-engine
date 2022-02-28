@@ -50,5 +50,5 @@ set (TEST_MOD_PATH ${CMAKE_CURRENT_SOURCE_DIR}/test_mod)
 
 configure_file(
 	"${CMAKE_CURRENT_SOURCE_DIR}/test_config.h.in"
-	"${PROJECT_BINARY_DIR}/test_config.h"
+	"${CMAKE_CURRENT_BINARY_DIR}/test_config.h"
 )
