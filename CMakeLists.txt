@@ -1,11 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
-
-# Set policies up to 3.9 since we want to enable the IPO option
-if(${CMAKE_VERSION} VERSION_LESS 3.9)
-	cmake_policy(VERSION ${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION})
-else()
-	cmake_policy(VERSION 3.9)
-endif()
+cmake_minimum_required(VERSION 3.16...3.22)
 
 if(DEFINED ENV{VCPKG_ROOT} AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
 	set(CMAKE_TOOLCHAIN_FILE "$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake" CACHE STRING "")
