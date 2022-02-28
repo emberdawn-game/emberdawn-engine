@@ -519,7 +519,7 @@ if(BUILD_CLIENT)
     target_include_directories(${PROJECT_NAME} PRIVATE ${UNITTEST_INCLUDES})
 	target_link_libraries(${PROJECT_NAME} PRIVATE
 		${ZLIB_LIBRARIES}
-		IrrlichtMt::IrrlichtMt
+		EmberdawnIrrlicht::Irrlicht
 		${ZSTD_LIBRARY}
 		${X11_LIBRARIES}
 		${SOUND_LIBRARIES}
@@ -584,11 +584,10 @@ if(BUILD_SERVER)
 	add_executable(${PROJECT_NAME}server ${server_SRCS} ${extra_windows_SRCS})
 	add_dependencies(${PROJECT_NAME}server GenerateVersion)
 
-	get_target_property(
-		IRRLICHT_INCLUDES IrrlichtMt::IrrlichtMt INTERFACE_INCLUDE_DIRECTORIES)
 	# Doesn't work without PRIVATE/PUBLIC/INTERFACE mode specified.
 	target_include_directories(${PROJECT_NAME}server PRIVATE ${IRRLICHT_INCLUDES} ${UNITTEST_INCLUDES})
 	target_link_libraries(${PROJECT_NAME}server PRIVATE
+        EmberdawnIrrlicht::Include
 		${ZLIB_LIBRARIES}
 		${ZSTD_LIBRARY}
 		${SQLITE3_LIBRARY}

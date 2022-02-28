@@ -1,0 +1,12 @@
+{
+  "registries": [
+    {
+      "kind": "git",
+      "repository": "https://github.com/emberdawn-game/vcpkg-registry",
+      "baseline": "683a637635190ac244f8e2de00d3b19abdc4ea57",
+      "packages": [
+        "emberdawn-irrlicht"
+      ]
+    }
+  ]
+}

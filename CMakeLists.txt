@@ -46,27 +46,7 @@ endif()
 # Included stuff
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 
-
-if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/lib/irrlichtmt")
-	if(BUILD_CLIENT)
-		add_subdirectory(lib/irrlichtmt EXCLUDE_FROM_ALL)
-
-		if(NOT TARGET IrrlichtMt)
-			message(FATAL_ERROR "IrrlichtMt project is missing a CMake target?!")
-		endif()
-	else()
-		add_library(IrrlichtMt::IrrlichtMt INTERFACE IMPORTED)
-		set_target_properties(IrrlichtMt::IrrlichtMt PROPERTIES
-			INTERFACE_INCLUDE_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}/lib/irrlichtmt/include")
-	endif()
-else()
-    string(CONCAT explanation_msg
-        "The Minetest team has forked Irrlicht to make their own customizations. "
-        "It can be found here: https://github.com/minetest/irrlicht\n"
-        "For example use: git clone --depth=1 https://github.com/minetest/irrlicht lib/irrlichtmt\n")
-    message(FATAL_ERROR "IrrlichtMt is required to build, but it was not found.\n${explanation_msg}")
-endif()
-
+find_package(emberdawn-irrlicht CONFIG REQUIRED)
 
 # Installation
 

@@ -8,6 +8,7 @@
       "name": "curl",
       "features": ["winssl"]
     },
+    "emberdawn-irrlicht",
     "freetype",
     "libjpeg-turbo",
     "libogg",
