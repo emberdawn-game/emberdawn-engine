@@ -32,8 +32,6 @@ if (CMAKE_BUILD_TYPE STREQUAL Debug)
 	set(VERSION_STRING "${VERSION_STRING}-debug")
 endif()
 
-message(STATUS "*** Will build version ${VERSION_STRING} ***")
-
 
 # Configuration options
 set(DEFAULT_RUN_IN_PLACE FALSE)
@@ -60,7 +58,6 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 
 
 if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/lib/irrlichtmt")
-	message(STATUS "Using user-provided IrrlichtMt at subdirectory 'lib/irrlichtmt'")
 	if(BUILD_CLIENT)
 		add_subdirectory(lib/irrlichtmt EXCLUDE_FROM_ALL)
 
@@ -78,10 +75,6 @@ else()
         "It can be found here: https://github.com/minetest/irrlicht\n"
         "For example use: git clone --depth=1 https://github.com/minetest/irrlicht lib/irrlichtmt\n")
     message(FATAL_ERROR "IrrlichtMt is required to build, but it was not found.\n${explanation_msg}")
-endif()
-
-if(TARGET IrrlichtMt::IrrlichtMt)
-	message(STATUS "Found IrrlichtMt ${IrrlichtMt_VERSION}")
 endif()
 
 
