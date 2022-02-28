@@ -522,8 +522,7 @@ endif()
 if(BUILD_CLIENT)
 	add_executable(${PROJECT_NAME} ${client_SRCS} ${extra_windows_SRCS})
 	add_dependencies(${PROJECT_NAME} GenerateVersion)
-	target_link_libraries(
-		${PROJECT_NAME}
+	target_link_libraries(${PROJECT_NAME} PRIVATE
 		${ZLIB_LIBRARIES}
 		IrrlichtMt::IrrlichtMt
 		${ZSTD_LIBRARY}
@@ -546,28 +545,18 @@ if(BUILD_CLIENT)
 	endif()
 
 	if(ENABLE_GLES)
-		target_link_libraries(
-			${PROJECT_NAME}
+		target_link_libraries(${PROJECT_NAME} PRIVATE
 			${OPENGLES2_LIBRARIES}
 			${EGL_LIBRARIES}
 		)
 	else()
-		target_link_libraries(
-			${PROJECT_NAME}
-			${OPENGL_LIBRARIES}
-		)
+		target_link_libraries(${PROJECT_NAME} PRIVATE ${OPENGL_LIBRARIES})
 	endif()
 	if(USE_GETTEXT)
-		target_link_libraries(
-			${PROJECT_NAME}
-			${GETTEXT_LIBRARY}
-		)
+		target_link_libraries(${PROJECT_NAME} PRIVATE ${GETTEXT_LIBRARY})
 	endif()
 	if(USE_CURL)
-		target_link_libraries(
-			${PROJECT_NAME}
-			${CURL_LIBRARY}
-		)
+		target_link_libraries(${PROJECT_NAME} PRIVATE ${CURL_LIBRARY})
 	endif()
 	if(FREETYPE_PKGCONFIG_FOUND)
 		set_target_properties(${PROJECT_NAME}
@@ -576,22 +565,22 @@ if(BUILD_CLIENT)
 	)
 	endif()
 	if (USE_CURSES)
-		target_link_libraries(${PROJECT_NAME} ${CURSES_LIBRARIES})
+		target_link_libraries(${PROJECT_NAME} PRIVATE ${CURSES_LIBRARIES})
 	endif()
 	if (USE_POSTGRESQL)
-		target_link_libraries(${PROJECT_NAME} ${PostgreSQL_LIBRARIES})
+		target_link_libraries(${PROJECT_NAME} PRIVATE ${PostgreSQL_LIBRARIES})
 	endif()
 	if (USE_LEVELDB)
-		target_link_libraries(${PROJECT_NAME} ${LEVELDB_LIBRARY})
+		target_link_libraries(${PROJECT_NAME} PRIVATE ${LEVELDB_LIBRARY})
 	endif()
 	if (USE_REDIS)
-		target_link_libraries(${PROJECT_NAME} ${REDIS_LIBRARY})
+		target_link_libraries(${PROJECT_NAME} PRIVATE ${REDIS_LIBRARY})
 	endif()
 	if (USE_PROMETHEUS)
-		target_link_libraries(${PROJECT_NAME} ${PROMETHEUS_LIBRARIES})
+		target_link_libraries(${PROJECT_NAME} PRIVATE ${PROMETHEUS_LIBRARIES})
 	endif()
 	if (USE_SPATIAL)
-		target_link_libraries(${PROJECT_NAME} ${SPATIAL_LIBRARY})
+		target_link_libraries(${PROJECT_NAME} PRIVATE ${SPATIAL_LIBRARY})
 	endif()
 endif(BUILD_CLIENT)
 
@@ -604,8 +593,7 @@ if(BUILD_SERVER)
 		IRRLICHT_INCLUDES IrrlichtMt::IrrlichtMt INTERFACE_INCLUDE_DIRECTORIES)
 	# Doesn't work without PRIVATE/PUBLIC/INTERFACE mode specified.
 	target_include_directories(${PROJECT_NAME}server PRIVATE ${IRRLICHT_INCLUDES})
-	target_link_libraries(
-		${PROJECT_NAME}server
+	target_link_libraries(${PROJECT_NAME}server PRIVATE
 		${ZLIB_LIBRARIES}
 		${ZSTD_LIBRARY}
 		${SQLITE3_LIBRARY}
@@ -626,31 +614,28 @@ if(BUILD_SERVER)
 	endif()
 
 	if (USE_GETTEXT)
-		target_link_libraries(${PROJECT_NAME}server ${GETTEXT_LIBRARY})
+		target_link_libraries(${PROJECT_NAME}server PRIVATE ${GETTEXT_LIBRARY})
 	endif()
 	if (USE_CURSES)
-		target_link_libraries(${PROJECT_NAME}server ${CURSES_LIBRARIES})
+		target_link_libraries(${PROJECT_NAME}server PRIVATE ${CURSES_LIBRARIES})
 	endif()
 	if (USE_POSTGRESQL)
-		target_link_libraries(${PROJECT_NAME}server ${PostgreSQL_LIBRARIES})
+		target_link_libraries(${PROJECT_NAME}server PRIVATE ${PostgreSQL_LIBRARIES})
 	endif()
 	if (USE_LEVELDB)
-		target_link_libraries(${PROJECT_NAME}server ${LEVELDB_LIBRARY})
+		target_link_libraries(${PROJECT_NAME}server PRIVATE ${LEVELDB_LIBRARY})
 	endif()
 	if (USE_REDIS)
-		target_link_libraries(${PROJECT_NAME}server ${REDIS_LIBRARY})
+		target_link_libraries(${PROJECT_NAME}server PRIVATE ${REDIS_LIBRARY})
 	endif()
 	if (USE_PROMETHEUS)
-		target_link_libraries(${PROJECT_NAME}server ${PROMETHEUS_LIBRARIES})
+		target_link_libraries(${PROJECT_NAME}server PRIVATE ${PROMETHEUS_LIBRARIES})
 	endif()
 	if (USE_SPATIAL)
-		target_link_libraries(${PROJECT_NAME}server ${SPATIAL_LIBRARY})
+		target_link_libraries(${PROJECT_NAME}server PRIVATE ${SPATIAL_LIBRARY})
 	endif()
 	if(USE_CURL)
-		target_link_libraries(
-			${PROJECT_NAME}server
-			${CURL_LIBRARY}
-		)
+		target_link_libraries(${PROJECT_NAME}server PRIVATE ${CURL_LIBRARY})
 	endif()
 endif(BUILD_SERVER)
 
@@ -738,7 +723,7 @@ else()
 			# Move text segment below LuaJIT's 47-bit limit (see issue #9367)
 			if(CMAKE_SYSTEM_NAME MATCHES "FreeBSD")
 				# FreeBSD uses lld, and lld does not support -Ttext-segment, suggesting
-				# --image-base instead. Not sure if it's equivalent change for the purpose 
+				# --image-base instead. Not sure if it's equivalent change for the purpose
 				# but at least if fixes build on FreeBSD/aarch64
 				# XXX: the condition should also be changed to check for lld regardless of
 				# os, bit CMake doesn't have anything like CMAKE_LINKER_IS_LLD yet
