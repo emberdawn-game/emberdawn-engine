@@ -516,6 +516,7 @@ endif()
 if(BUILD_CLIENT)
 	add_executable(${PROJECT_NAME} ${client_SRCS} ${extra_windows_SRCS})
 	add_dependencies(${PROJECT_NAME} GenerateVersion)
+    target_include_directories(${PROJECT_NAME} PRIVATE ${UNITTEST_INCLUDES})
 	target_link_libraries(${PROJECT_NAME} PRIVATE
 		${ZLIB_LIBRARIES}
 		IrrlichtMt::IrrlichtMt
@@ -586,7 +587,7 @@ if(BUILD_SERVER)
 	get_target_property(
 		IRRLICHT_INCLUDES IrrlichtMt::IrrlichtMt INTERFACE_INCLUDE_DIRECTORIES)
 	# Doesn't work without PRIVATE/PUBLIC/INTERFACE mode specified.
-	target_include_directories(${PROJECT_NAME}server PRIVATE ${IRRLICHT_INCLUDES})
+	target_include_directories(${PROJECT_NAME}server PRIVATE ${IRRLICHT_INCLUDES} ${UNITTEST_INCLUDES})
 	target_link_libraries(${PROJECT_NAME}server PRIVATE
 		${ZLIB_LIBRARIES}
 		${ZSTD_LIBRARY}
